@@ -1,6 +1,7 @@
 import datetime
 from dataclasses import dataclass
 
+
 @dataclass
 class OuraDailyActivityContributors:
     meet_daily_targets: int
@@ -10,11 +11,13 @@ class OuraDailyActivityContributors:
     training_frequency: int
     training_volume: int
 
+
 @dataclass
 class OuraDailyActivityMet:
     interval: float
     items: list[float]
     timestamp: datetime.datetime
+
 
 @dataclass
 class OuraDailyActivity:
@@ -45,10 +48,12 @@ class OuraDailyActivity:
     day: datetime.date
     timestamp: datetime.datetime
 
+
 @dataclass
 class OuraDailyActivities:
     data: list[OuraDailyActivity]
     next_token: str | None
+
 
 @dataclass
 class OuraDailyReadinessContributors:
@@ -61,6 +66,7 @@ class OuraDailyReadinessContributors:
     resting_heart_rate: int
     sleep_balance: int
 
+
 @dataclass
 class OuraDailyReadiness:
     id: str
@@ -71,16 +77,19 @@ class OuraDailyReadiness:
     temperature_trend_deviation: float
     timestamp: datetime.datetime
 
+
 @dataclass
 class OuraDailyReadinesses:
     data: list[OuraDailyReadiness]
     next_token: str | None
+
 
 @dataclass
 class OuraDailyResilienceContributors:
     sleep_recovery: float
     daytime_recovery: float
     stress: float
+
 
 @dataclass
 class OuraDailyResilience:
@@ -89,10 +98,12 @@ class OuraDailyResilience:
     day: datetime.date
     level: str
 
+
 @dataclass
 class OuraDailyResiliences:
     data: list[OuraDailyResilience]
     next_token: str | None
+
 
 @dataclass
 class OuraDailySleepContributors:
@@ -104,6 +115,7 @@ class OuraDailySleepContributors:
     timing: int
     total_sleep: int
 
+
 @dataclass
 class OuraDailySleep:
     id: str
@@ -112,25 +124,30 @@ class OuraDailySleep:
     score: int
     timestamp: datetime.datetime
 
+
 @dataclass
 class OuraDailySleeps:
     data: list[OuraDailySleep]
     next_token: str | None
 
+
 @dataclass
 class OuraDailySpo2Spo2Percentage:
     average: float
+
 
 @dataclass
 class OuraDailySpo2:
     id: str
     day: datetime.date
-    spo2_percentage: OuraDailySpo2Spo2Percentage
+    spo2_percentage: OuraDailySpo2Spo2Percentage | None
+
 
 @dataclass
 class OuraDailySpo2s:
     data: list[OuraDailySpo2]
     next_token: str | None
+
 
 @dataclass
 class OuraDailyStress:
@@ -140,10 +157,12 @@ class OuraDailyStress:
     recovery_high: int | None
     day_summary: str | None
 
+
 @dataclass
 class OuraDailyStresses:
     data: list[OuraDailyStress]
     next_token: str | None
+
 
 @dataclass
 class OuraHeartRate:
@@ -151,10 +170,12 @@ class OuraHeartRate:
     source: str
     timestamp: datetime.datetime
 
+
 @dataclass
 class OuraHeartRates:
     data: list[OuraHeartRate]
     next_token: str | None
+
 
 @dataclass
 class OuraPersonalInfo:
