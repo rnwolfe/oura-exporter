@@ -1,0 +1,33 @@
+---
+alwaysApply: true
+description: Overview of the Oura Exporter project structure and main components
+---
+
+# Oura Exporter Project Structure
+
+This is a Python-based Prometheus exporter for Oura Ring data.
+
+## Main Entry Point
+
+- **[main.py](mdc:main.py)** - Main application entry point that initializes the Oura client and Prometheus server
+
+## Core Modules
+
+- **[modules/oura.py](mdc:modules/oura.py)** - Oura Ring API client for fetching health data
+- **[modules/oura_dataclasses.py](mdc:modules/oura_dataclasses.py)** - Data classes for Oura API responses
+- **[modules/prometheus.py](mdc:modules/prometheus.py)** - Prometheus metrics collection and formatting
+
+## Configuration
+
+- **[config/metrics.yml](mdc:config/metrics.yml)** - Configuration file defining which Oura metrics to export
+- **[pyproject.toml](mdc:pyproject.toml)** - Python project configuration and dependencies
+
+## Docker & Deployment
+
+- **[Dockerfile](mdc:Dockerfile)** - Container definition for easy deployment
+- **[requirements.txt](mdc:requirements.txt)** - Python dependencies (legacy, prefer pyproject.toml)
+
+## Examples & Documentation
+
+- **[example/oura.prom](mdc:example/oura.prom)** - Example Prometheus output format
+- **[README.md](mdc:README.md)** - Project documentation and setup instructions

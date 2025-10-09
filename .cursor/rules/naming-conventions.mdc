@@ -1,0 +1,24 @@
+---
+alwaysApply: true
+description: Naming conventions for CLI commands and project components
+---
+
+# Naming Conventions
+
+## CLI Commands
+
+- **Use lower-case kebab-case** for all CLI commands and scripts
+- Examples: `control-server`, `control-client`, `header-demo`
+- **Avoid CamelCase** for command names
+
+## Python Modules
+
+- Use **snake_case** for Python module names and functions
+- Use **PascalCase** for class names
+- Use **SCREAMING_SNAKE_CASE** for constants
+
+## File Naming
+
+- Python files: `snake_case.py`
+- Configuration files: `kebab-case.yml` or `snake_case.yml`
+- Documentation: `kebab-case.md` or `README.md`

@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+description: Git hooks should use turbo commands for running tasks
+---
+
+# Git Hooks Convention
+
+## Task Execution
+
+- **Always use turbo commands** in git hooks for running project tasks
+- Examples: `turbo lint`, `turbo test`, `turbo build`
+
+## Hook Types
+
+- **pre-commit**: Run linting and formatting checks
+- **pre-push**: Run tests and build verification
+- **post-merge**: Update dependencies if needed
+
+## Common Commands
+
+- `turbo run lint` - Code quality checks
+- `turbo run test` - Run test suite
+- `turbo run build` - Build verification

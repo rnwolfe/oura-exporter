@@ -1,0 +1,30 @@
+---
+description: Deployment and configuration patterns for the Oura Exporter
+globs: *.yml,Dockerfile,*.yaml
+alwaysApply: false
+---
+# Deployment and Configuration
+
+## Docker Deployment
+
+- **Multi-stage builds**: Use multi-stage Dockerfile for smaller production images
+- **Environment variables**: Configure Oura API credentials via environment variables
+- **Health checks**: Implement health check endpoints for container orchestration
+
+## Configuration Management
+
+- **YAML format**: Use YAML for configuration files (metrics.yml)
+- **Environment-specific**: Support different configurations for dev/staging/prod
+- **Validation**: Validate configuration files at startup
+
+## Metrics Configuration
+
+- **Modular metrics**: Define metrics in separate YAML configuration
+- **Conditional export**: Support enabling/disabling specific metrics
+- **Type safety**: Define expected data types for configuration values
+
+## Security Considerations
+
+- **Credential management**: Never store API tokens in configuration files
+- **Environment variables**: Use env vars for sensitive configuration
+- **HTTPS only**: Always use HTTPS for API communications

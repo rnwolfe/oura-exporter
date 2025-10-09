@@ -1,0 +1,30 @@
+---
+globs: *.py
+description: Python best practices for the Oura Exporter project
+---
+
+# Python Development Practices
+
+## Module Structure
+
+- **Separate concerns**: Keep API client, data models, and metrics export in separate modules
+- **Type hints**: Use type annotations for better code clarity and IDE support
+- **Dataclasses**: Use `@dataclass` decorator for data structures (see oura_dataclasses.py)
+
+## API Integration
+
+- **Error handling**: Wrap Oura API calls in try-catch blocks with appropriate logging
+- **Rate limiting**: Respect Oura API rate limits and implement backoff strategies
+- **Authentication**: Securely handle Oura API tokens and personal access tokens
+
+## Prometheus Integration
+
+- **Metric naming**: Follow Prometheus naming conventions (snake_case, no spaces)
+- **Labels**: Use meaningful labels for metric dimensions
+- **Types**: Choose appropriate metric types (Counter, Gauge, Histogram)
+
+## Code Quality
+
+- **Linting**: Run black for formatting and flake8 for style checks
+- **Testing**: Write unit tests for API clients and metric collection
+- **Documentation**: Add docstrings to all public functions and classes

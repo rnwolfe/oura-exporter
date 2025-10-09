@@ -1,0 +1,43 @@
+---
+globs: *.py,*.yml
+alwaysApply: false
+description: Guidelines for integrating with the Oura Ring API
+---
+
+# Oura Ring API Integration
+
+## Official Documentation
+- **Oura API v2 Docs**: [https://cloud.ouraring.com/v2/docs](https://cloud.ouraring.com/v2/docs)
+- Reference the official documentation for complete API specifications, endpoints, and data structures
+
+## Authentication
+- **Personal Access Token**: Required for API authentication via `Authorization: Bearer <token>` header
+- **Token Management**: Store tokens securely as environment variables, never in code
+- **Scopes**: Request appropriate scopes (personal, daily, etc.) based on data needs
+
+## API Endpoints
+- **Personal Info**: `/v2/usercollection/personal_info`
+- **Sleep Data**: `/v2/usercollection/sleep`
+- **Activity Data**: `/v2/usercollection/activity`
+- **Readiness Data**: `/v2/usercollection/readiness`
+- **Heart Rate**: `/v2/usercollection/heartrate`
+
+## Data Structures
+- **Timestamps**: Use ISO 8601 format in UTC
+- **Date Ranges**: Specify start_date and end_date parameters for historical data
+- **Pagination**: Handle pagination for large datasets (next_token parameter)
+
+## Rate Limiting
+- **Requests**: Respect API rate limits (typically 100 requests per hour)
+- **Backoff Strategy**: Implement exponential backoff for rate limit handling
+- **Retry Logic**: Handle temporary failures gracefully
+
+## Error Handling
+- **HTTP Status Codes**: Handle 401 (unauthorized), 429 (rate limited), 500 (server errors)
+- **Response Validation**: Validate API response structure before processing
+- **Logging**: Log API errors for debugging and monitoring
+
+## Best Practices
+- **Incremental Sync**: Use start_date/end_date to fetch only new data
+- **Data Caching**: Cache frequently accessed data to reduce API calls
+- **Monitoring**: Track API usage and errors for operational visibility
