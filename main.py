@@ -137,50 +137,58 @@ if __name__ == "__main__":
 
             # Handle time-series data differently (like heartrate)
             if category.name in ["heartrate"]:
-                # For time-series data, create metrics for each entry
+                # For heartrate, sort by timestamp (newest first) and take the latest
                 logging.info(f"Found {len(metrics.data)} {category.name} entries")
 
-                for entry_idx, entry in enumerate(metrics.data):
-                    entry_labels = labels.copy()
+                # Sort by timestamp (newest first) and take the first one
+                # Handle case where timestamp might be None
+                valid_entries = [
+                    entry
+                    for entry in metrics.data
+                    if hasattr(entry, "timestamp") and entry.timestamp
+                ]
+                if valid_entries:
+                    sorted_data = sorted(
+                        valid_entries, key=lambda x: x.timestamp, reverse=True
+                    )
+                    latest_entry = sorted_data[0]
+                    logging.info(
+                        f"Using latest heartrate from {latest_entry.timestamp}"
+                    )
+                else:
+                    # Fallback to last entry if no timestamps
+                    latest_entry = metrics.data[-1]
+                    logging.info(f"Using latest heartrate (no timestamp available)")
 
-                    # Add timestamp as a label for time-series data
-                    if hasattr(entry, "timestamp") and entry.timestamp:
-                        # Format timestamp for use as a label (ISO format without colons in timezone)
-                        timestamp_label = entry.timestamp.isoformat().replace(":", "")
-                        entry_labels.append(timestamp_label)
+                for m in category.metrics:
+                    iterator = m.iterator if m.iterator != None else m.name
+                    try:
+                        # Use safe_getattr for nested attributes that might contain None values
+                        if "." in iterator:
+                            value = safe_getattr(latest_entry, iterator)
+                        else:
+                            value = getattr(latest_entry, iterator)
 
-                    for m in category.metrics:
-                        iterator = m.iterator if m.iterator != None else m.name
-                        try:
-                            # Use safe_getattr for nested attributes that might contain None values
-                            if "." in iterator:
-                                value = safe_getattr(entry, iterator)
-                            else:
-                                value = getattr(entry, iterator)
-
-                            # Skip metrics with None values (they will be logged as debug)
-                            if value is None:
-                                logging.debug(
-                                    f"{category.prefix}{m.name} (entry {entry_idx}): None value, skipping"
-                                )
-                                continue
-
+                        # Skip metrics with None values (they will be logged as debug)
+                        if value is None:
                             logging.debug(
-                                f"{category.prefix}{m.name} (entry {entry_idx}): {value}"
-                            )
-                            metric_key = f"{category.name}_{m.name}"
-                            if metric_key not in root_metrics:
-                                root_metrics[metric_key] = prom.create_metric_instance(
-                                    m, registry, category.prefix
-                                )
-                            prom.set_metrics(
-                                root_metrics[metric_key], entry_labels, value
-                            )
-                        except Exception as e:
-                            logging.error(
-                                f"Error processing metric {m.name} for entry {entry_idx}: {e}"
+                                f"{category.prefix}{m.name}: None value, skipping"
                             )
                             continue
+
+                        logging.debug(f"{category.prefix}{m.name}: {value}")
+                        if not m.name in root_metrics[category.name]:
+                            root_metrics[category.name][m.name] = (
+                                prom.create_metric_instance(
+                                    m, registry, category.prefix
+                                )
+                            )
+                        prom.set_metrics(
+                            root_metrics[category.name][m.name], labels, value
+                        )
+                    except Exception as e:
+                        logging.error(f"Error processing metric {m.name}: {e}")
+                        continue
             else:
                 # Handle single-value metrics (existing logic)
                 if category.name != "personal_info":
