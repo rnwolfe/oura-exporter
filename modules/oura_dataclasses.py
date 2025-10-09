@@ -16,7 +16,7 @@ class OuraDailyActivityContributors:
 class OuraDailyActivityMet:
     interval: float
     items: list[float]
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -46,7 +46,7 @@ class OuraDailyActivity:
     target_meters: int
     total_calories: int
     day: datetime.date
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -75,7 +75,7 @@ class OuraDailyReadiness:
     score: int
     temperature_deviation: float
     temperature_trend_deviation: float
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -122,7 +122,7 @@ class OuraDailySleep:
     contributors: OuraDailySleepContributors
     day: datetime.date
     score: int
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -168,7 +168,7 @@ class OuraDailyStresses:
 class OuraHeartRate:
     bpm: int
     source: str
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -181,14 +181,14 @@ class OuraHeartRates:
 class OuraSleepHeartRateData:
     interval: float
     items: list
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
 class OuraSleepHRVData:
     interval: float
     items: list
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -224,9 +224,9 @@ class OuraPersonalInfo:
 @dataclass
 class OuraRestModePeriod:
     id: str | None
-    start_datetime: datetime.datetime
+    start_datetime: datetime.datetime | None
     end_datetime: datetime.datetime | None
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -242,7 +242,7 @@ class OuraRingConfiguration:
     device_type: str | None
     firmware_version: str | None
     hardware_revision: str | None
-    timestamp: datetime.datetime | None
+    timestamp: datetime.datetime | None | None
 
 
 @dataclass
@@ -254,13 +254,13 @@ class OuraRingConfigurations:
 @dataclass
 class OuraSession:
     id: str | None
-    day: datetime.date
-    start_datetime: datetime.datetime
-    end_datetime: datetime.datetime
-    type: str
+    day: datetime.date | None
+    start_datetime: datetime.datetime | None
+    end_datetime: datetime.datetime | None
+    type: str | None
     heart_rate: OuraHeartRate | None
     motion_count: int | None
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -334,7 +334,7 @@ class OuraSleepTime:
     ideal_bedtime: str | None
     is_longest: bool | None
     midpoint_time: int | None
-    timestamp: datetime.datetime | None
+    timestamp: datetime.datetime | None | None
 
 
 @dataclass
@@ -346,12 +346,12 @@ class OuraSleepTimes:
 @dataclass
 class OuraTag:
     id: str | None
-    day: datetime.date
-    start_datetime: datetime.datetime
-    end_datetime: datetime.datetime
-    tag_type_code: int
+    day: datetime.date | None
+    start_datetime: datetime.datetime | None
+    end_datetime: datetime.datetime | None
+    tag_type_code: int | None
     text: str | None
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -365,7 +365,7 @@ class OuraVO2Max:
     id: str | None
     vo2_max: float | None
     day: datetime.date
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -376,31 +376,31 @@ class OuraVO2Maxes:
 
 @dataclass
 class OuraWorkoutHeartRate:
-    start_datetime: datetime.datetime
-    end_datetime: datetime.datetime
-    heart_rate: int
+    start_datetime: datetime.datetime | None
+    end_datetime: datetime.datetime | None
+    heart_rate: int | None
 
 
 @dataclass
 class OuraWorkoutIntensity:
-    start_datetime: datetime.datetime
-    end_datetime: datetime.datetime
+    start_datetime: datetime.datetime | None
+    end_datetime: datetime.datetime | None
     met_value: float | None
 
 
 @dataclass
 class OuraWorkout:
     id: str | None
-    activity: str
+    activity: str | None
     calories: int | None
-    day: datetime.date
+    day: datetime.date | None
     distance: int | None
-    end_datetime: datetime.datetime
+    end_datetime: datetime.datetime | None
     heart_rate: list[OuraWorkoutHeartRate] | None
     intensity: list[OuraWorkoutIntensity] | None
     max_heart_rate: int | None
-    start_datetime: datetime.datetime
-    timestamp: datetime.datetime
+    start_datetime: datetime.datetime | None
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -412,12 +412,12 @@ class OuraWorkouts:
 @dataclass
 class OuraEnhancedTag:
     id: str | None
-    day: datetime.date
-    start_datetime: datetime.datetime
-    end_datetime: datetime.datetime
-    tag_type_code: int
+    day: datetime.date | None
+    start_datetime: datetime.datetime | None
+    end_datetime: datetime.datetime | None
+    tag_type_code: int | None
     text: str | None
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
     metadata: dict | None
 
 

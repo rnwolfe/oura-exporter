@@ -135,8 +135,16 @@ if __name__ == "__main__":
                 )
                 continue
 
-            # Handle time-series data differently (like heartrate)
-            if category.name in ["heartrate"]:
+            # Handle time-series data differently (realtime endpoints with multiple entries)
+            if category.name in [
+                "heartrate",
+                "sleep_time",
+                "rest_mode_period",
+                "session",
+                "tag",
+                "workout",
+                "enhanced_tag",
+            ]:
                 # For heartrate, sort by timestamp (newest first) and take the latest
                 logging.info(f"Found {len(metrics.data)} {category.name} entries")
 
@@ -153,12 +161,14 @@ if __name__ == "__main__":
                     )
                     latest_entry = sorted_data[0]
                     logging.info(
-                        f"Using latest heartrate from {latest_entry.timestamp}"
+                        f"Using latest heartrate from {latest_entry.timestamp} (found {len(valid_entries)} valid entries)"
                     )
                 else:
                     # Fallback to last entry if no timestamps
                     latest_entry = metrics.data[-1]
-                    logging.info(f"Using latest heartrate (no timestamp available)")
+                    logging.info(
+                        f"Using latest heartrate from last entry (no valid timestamps, found {len(metrics.data)} total entries)"
+                    )
 
                 for m in category.metrics:
                     iterator = m.iterator if m.iterator != None else m.name
