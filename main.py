@@ -138,7 +138,6 @@ if __name__ == "__main__":
             # Handle time-series data differently (realtime endpoints with multiple entries)
             if category.name in [
                 "heartrate",
-                "sleep_time",
                 "rest_mode_period",
                 "session",
                 "tag",
@@ -148,6 +147,18 @@ if __name__ == "__main__":
                 # For heartrate, sort by timestamp (newest first) and take the latest
                 logging.info(f"Found {len(metrics.data)} {category.name} entries")
 
+                # Debug logging if DEBUG env var is set
+                debug_mode = os.environ.get("DEBUG", "false").lower() == "true"
+                if debug_mode:
+                    logging.info(
+                        f"DEBUG: Processing {category.name} entries for timestamp sorting"
+                    )
+                    for i, entry in enumerate(metrics.data[:3]):  # Show first 3 entries
+                        timestamp_info = (
+                            f"timestamp={getattr(entry, 'timestamp', 'MISSING')}"
+                        )
+                        logging.info(f"DEBUG: Entry {i}: {timestamp_info}")
+
                 # Sort by timestamp (newest first) and take the first one
                 # Handle case where timestamp might be None
                 valid_entries = [
@@ -155,19 +166,53 @@ if __name__ == "__main__":
                     for entry in metrics.data
                     if hasattr(entry, "timestamp") and entry.timestamp
                 ]
+
+                if debug_mode:
+                    logging.info(
+                        f"DEBUG: Found {len(valid_entries)} entries with valid timestamps out of {len(metrics.data)} total"
+                    )
+
                 if valid_entries:
                     sorted_data = sorted(
                         valid_entries, key=lambda x: x.timestamp, reverse=True
                     )
                     latest_entry = sorted_data[0]
+
+                    if debug_mode:
+                        logging.info(
+                            f"DEBUG: Latest entry timestamp: {latest_entry.timestamp}"
+                        )
+
+                    # Show appropriate field for logging
+                    if hasattr(latest_entry, "timestamp") and latest_entry.timestamp:
+                        time_info = latest_entry.timestamp
+                    elif hasattr(latest_entry, "day") and latest_entry.day:
+                        time_info = latest_entry.day
+                    else:
+                        time_info = "latest entry"
+
                     logging.info(
-                        f"Using latest heartrate from {latest_entry.timestamp} (found {len(valid_entries)} valid entries)"
+                        f"Using latest {category.name} from {time_info} (found {len(valid_entries)} valid entries)"
                     )
                 else:
                     # Fallback to last entry if no timestamps
                     latest_entry = metrics.data[-1]
+
+                    if debug_mode:
+                        logging.info(
+                            f"DEBUG: No valid timestamps found, using last entry. Total entries: {len(metrics.data)}"
+                        )
+
+                    # Show appropriate field for logging
+                    if hasattr(latest_entry, "timestamp") and latest_entry.timestamp:
+                        time_info = latest_entry.timestamp
+                    elif hasattr(latest_entry, "day") and latest_entry.day:
+                        time_info = latest_entry.day
+                    else:
+                        time_info = "last entry"
+
                     logging.info(
-                        f"Using latest heartrate from last entry (no valid timestamps, found {len(metrics.data)} total entries)"
+                        f"Using latest {category.name} from {time_info} (no valid timestamps, found {len(metrics.data)} total entries)"
                     )
 
                 for m in category.metrics:
@@ -207,9 +252,13 @@ if __name__ == "__main__":
                         logging.info(
                             f"Found {len(metrics.data)} {category.name} entries, using latest from {latest_metrics.timestamp or 'N/A'}"
                         )
-                    else:
+                    elif hasattr(latest_metrics, "day") and latest_metrics.day:
                         logging.info(
                             f"Found {len(metrics.data)} {category.name} entries, using latest from {latest_metrics.day}"
+                        )
+                    else:
+                        logging.info(
+                            f"Found {len(metrics.data)} {category.name} entries, using latest entry"
                         )
                 else:
                     latest_metrics = metrics
