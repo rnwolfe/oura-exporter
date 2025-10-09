@@ -352,3 +352,222 @@ categories:
     desc: Email
     type: info
     labels: *common_labels
+- name: rest_mode_period
+  prefix: oura_rest_mode_period_
+  labels: *common_labels
+  metrics:
+  - name: start_datetime
+    desc: Rest mode period start time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: start_datetime
+  - name: end_datetime
+    desc: Rest mode period end time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: end_datetime
+- name: ring_configuration
+  prefix: oura_ring_configuration_
+  labels: *common_labels
+  metrics:
+  - name: battery_level
+    desc: Ring battery level percentage
+    type: gauge
+    unit: percentage
+    labels: *common_labels
+  - name: device_type
+    desc: Ring device type
+    type: info
+    labels: *common_labels
+  - name: firmware_version
+    desc: Ring firmware version
+    type: info
+    labels: *common_labels
+  - name: hardware_revision
+    desc: Ring hardware revision
+    type: info
+    labels: *common_labels
+- name: session
+  prefix: oura_session_
+  labels: *common_labels
+  metrics:
+  - name: start_datetime
+    desc: Session start time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: start_datetime
+  - name: end_datetime
+    desc: Session end time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: end_datetime
+  - name: type
+    desc: Session type
+    type: info
+    labels: *common_labels
+  - name: motion_count
+    desc: Session motion count
+    type: gauge
+    unit: count
+    labels: *common_labels
+- name: sleep
+  prefix: oura_sleep_
+  labels: *common_labels
+  metrics:
+  - name: average_breath
+    desc: Average breath rate during sleep
+    type: gauge
+    unit: breaths_per_minute
+    labels: *common_labels
+  - name: average_heart_rate
+    desc: Average heart rate during sleep
+    type: gauge
+    unit: bpm
+    labels: *common_labels
+  - name: average_hrv
+    desc: Average heart rate variability during sleep
+    type: gauge
+    unit: ms
+    labels: *common_labels
+  - name: awake_time
+    desc: Time spent awake during sleep period
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+  - name: deep_sleep_duration
+    desc: Deep sleep duration
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+  - name: efficiency
+    desc: Sleep efficiency percentage
+    type: gauge
+    unit: percentage
+    labels: *common_labels
+  - name: latency
+    desc: Sleep latency (time to fall asleep)
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+  - name: light_sleep_duration
+    desc: Light sleep duration
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+  - name: low_battery_alert
+    desc: Low battery alert during sleep
+    type: gauge
+    unit: boolean
+    labels: *common_labels
+  - name: rem_sleep_duration
+    desc: REM sleep duration
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+  - name: time_in_bed
+    desc: Total time in bed
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+  - name: total_sleep_duration
+    desc: Total sleep duration
+    type: gauge
+    unit: seconds
+    labels: *common_labels
+- name: sleep_time
+  prefix: oura_sleep_time_
+  labels: *common_labels
+  metrics:
+  - name: bedtime_end_delta
+    desc: Bedtime end delta
+    type: gauge
+    unit: minutes
+    labels: *common_labels
+  - name: bedtime_start_delta
+    desc: Bedtime start delta
+    type: gauge
+    unit: minutes
+    labels: *common_labels
+  - name: is_longest
+    desc: Whether this is the longest sleep period
+    type: gauge
+    unit: boolean
+    labels: *common_labels
+  - name: midpoint_time
+    desc: Sleep midpoint time
+    type: gauge
+    unit: minutes
+    labels: *common_labels
+- name: vo2_max
+  prefix: oura_vo2_max_
+  labels: *common_labels
+  metrics:
+  - name: vo2_max
+    desc: VO2 Max value
+    type: gauge
+    unit: ml_per_kg_per_min
+    labels: *common_labels
+- name: workout
+  prefix: oura_workout_
+  labels: *common_labels
+  metrics:
+  - name: activity
+    desc: Workout activity type
+    type: info
+    labels: *common_labels
+  - name: calories
+    desc: Calories burned during workout
+    type: gauge
+    unit: kilocalories
+    labels: *common_labels
+  - name: distance
+    desc: Distance covered during workout
+    type: gauge
+    unit: meters
+    labels: *common_labels
+  - name: start_datetime
+    desc: Workout start time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: start_datetime
+  - name: end_datetime
+    desc: Workout end time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: end_datetime
+  - name: max_heart_rate
+    desc: Maximum heart rate during workout
+    type: gauge
+    unit: bpm
+    labels: *common_labels
+- name: enhanced_tag
+  prefix: oura_enhanced_tag_
+  labels: *common_labels
+  metrics:
+  - name: start_datetime
+    desc: Enhanced tag start time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: start_datetime
+  - name: end_datetime
+    desc: Enhanced tag end time
+    type: gauge
+    unit: timestamp
+    labels: *common_labels
+    iterator: end_datetime
+  - name: tag_type_code
+    desc: Enhanced tag type code
+    type: gauge
+    unit: code
+    labels: *common_labels
+  - name: text
+    desc: Enhanced tag text description
+    type: info
+    labels: *common_labels

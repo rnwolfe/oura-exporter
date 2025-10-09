@@ -21,7 +21,7 @@ class OuraDailyActivityMet:
 
 @dataclass
 class OuraDailyActivity:
-    id: str
+    id: str | None
     class_5_min: str
     score: int
     active_calories: int
@@ -69,7 +69,7 @@ class OuraDailyReadinessContributors:
 
 @dataclass
 class OuraDailyReadiness:
-    id: str
+    id: str | None
     contributors: OuraDailyReadinessContributors
     day: datetime.date
     score: int
@@ -93,7 +93,7 @@ class OuraDailyResilienceContributors:
 
 @dataclass
 class OuraDailyResilience:
-    id: str
+    id: str | None
     contributors: OuraDailyResilienceContributors
     day: datetime.date
     level: str
@@ -118,7 +118,7 @@ class OuraDailySleepContributors:
 
 @dataclass
 class OuraDailySleep:
-    id: str
+    id: str | None
     contributors: OuraDailySleepContributors
     day: datetime.date
     score: int
@@ -138,7 +138,7 @@ class OuraDailySpo2Spo2Percentage:
 
 @dataclass
 class OuraDailySpo2:
-    id: str
+    id: str | None
     day: datetime.date
     spo2_percentage: OuraDailySpo2Spo2Percentage | None
 
@@ -151,7 +151,7 @@ class OuraDailySpo2s:
 
 @dataclass
 class OuraDailyStress:
-    id: str
+    id: str | None
     day: datetime.date
     stress_high: int | None
     recovery_high: int | None
@@ -178,10 +178,250 @@ class OuraHeartRates:
 
 
 @dataclass
+class OuraSleepHeartRateData:
+    interval: float
+    items: list
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraSleepHRVData:
+    interval: float
+    items: list
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraSleepReadinessContributors:
+    activity_balance: int | None
+    body_temperature: int | None
+    hrv_balance: int | None
+    previous_day_activity: int | None
+    previous_night: int | None
+    recovery_index: int | None
+    resting_heart_rate: int | None
+    sleep_balance: int | None
+
+
+@dataclass
+class OuraSleepReadiness:
+    contributors: OuraSleepReadinessContributors
+    score: int | None
+    temperature_deviation: float | None
+    temperature_trend_deviation: float | None
+
+
+@dataclass
 class OuraPersonalInfo:
-    id: str
+    id: str | None
     age: int
     weight: float
     height: float
     biological_sex: str
     email: str
+
+
+@dataclass
+class OuraRestModePeriod:
+    id: str | None
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime | None
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraRestModePeriods:
+    data: list[OuraRestModePeriod]
+    next_token: str | None
+
+
+@dataclass
+class OuraRingConfiguration:
+    id: str | None
+    battery_level: int | None
+    device_type: str | None
+    firmware_version: str | None
+    hardware_revision: str | None
+    timestamp: datetime.datetime | None
+
+
+@dataclass
+class OuraRingConfigurations:
+    data: list[OuraRingConfiguration]
+    next_token: str | None
+
+
+@dataclass
+class OuraSession:
+    id: str | None
+    day: datetime.date
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime
+    type: str
+    heart_rate: OuraHeartRate | None
+    motion_count: int | None
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraSessions:
+    data: list[OuraSession]
+    next_token: str | None
+
+
+@dataclass
+class OuraSleepPhase:
+    phase: str | None
+    start_time: datetime.datetime | None
+    end_time: datetime.datetime | None
+    duration_ms: int | None
+
+
+@dataclass
+class OuraSleepMovement:
+    start_time: datetime.datetime | None
+    end_time: datetime.datetime | None
+    activity_level: float | None
+    duration_ms: int | None
+
+
+@dataclass
+class OuraSleep:
+    id: str
+    average_breath: float | None
+    average_heart_rate: float | None
+    average_hrv: int | None
+    awake_time: int | None
+    bedtime_end: datetime.datetime | None
+    bedtime_start: datetime.datetime | None
+    day: datetime.date | None
+    deep_sleep_duration: int | None
+    efficiency: int | None
+    heart_rate: OuraSleepHeartRateData | None
+    hrv: OuraSleepHRVData | None
+    latency: int | None
+    light_sleep_duration: int | None
+    low_battery_alert: bool | None
+    lowest_heart_rate: int | None
+    movement_30_sec: str | None
+    period: int | None
+    readiness: OuraSleepReadiness | None
+    readiness_score_delta: float | None
+    rem_sleep_duration: int | None
+    restless_periods: int | None
+    ring_id: str | None
+    sleep_phase_5_min: str | None
+    sleep_score_delta: float | None
+    sleep_algorithm_version: str | None
+    sleep_analysis_reason: str | None
+    time_in_bed: int | None
+    total_sleep_duration: int | None
+    type: str | None
+
+
+@dataclass
+class OuraSleeps:
+    data: list[OuraSleep]
+    next_token: str | None
+
+
+@dataclass
+class OuraSleepTime:
+    id: str | None
+    bedtime_end_delta: int | None
+    bedtime_start_delta: int | None
+    day: datetime.date | None
+    ideal_bedtime: str | None
+    is_longest: bool | None
+    midpoint_time: int | None
+    timestamp: datetime.datetime | None
+
+
+@dataclass
+class OuraSleepTimes:
+    data: list[OuraSleepTime]
+    next_token: str | None
+
+
+@dataclass
+class OuraTag:
+    id: str | None
+    day: datetime.date
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime
+    tag_type_code: int
+    text: str | None
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraTags:
+    data: list[OuraTag]
+    next_token: str | None
+
+
+@dataclass
+class OuraVO2Max:
+    id: str | None
+    vo2_max: float | None
+    day: datetime.date
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraVO2Maxes:
+    data: list[OuraVO2Max]
+    next_token: str | None
+
+
+@dataclass
+class OuraWorkoutHeartRate:
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime
+    heart_rate: int
+
+
+@dataclass
+class OuraWorkoutIntensity:
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime
+    met_value: float | None
+
+
+@dataclass
+class OuraWorkout:
+    id: str | None
+    activity: str
+    calories: int | None
+    day: datetime.date
+    distance: int | None
+    end_datetime: datetime.datetime
+    heart_rate: list[OuraWorkoutHeartRate] | None
+    intensity: list[OuraWorkoutIntensity] | None
+    max_heart_rate: int | None
+    start_datetime: datetime.datetime
+    timestamp: datetime.datetime
+
+
+@dataclass
+class OuraWorkouts:
+    data: list[OuraWorkout]
+    next_token: str | None
+
+
+@dataclass
+class OuraEnhancedTag:
+    id: str | None
+    day: datetime.date
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime
+    tag_type_code: int
+    text: str | None
+    timestamp: datetime.datetime
+    metadata: dict | None
+
+
+@dataclass
+class OuraEnhancedTags:
+    data: list[OuraEnhancedTag]
+    next_token: str | None
