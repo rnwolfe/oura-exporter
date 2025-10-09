@@ -313,18 +313,18 @@ categories:
     labels: *common_labels
 - name: heartrate
   prefix: oura_heartrate_
-  labels: *common_labels
+  labels: &heartrate_labels [email, timestamp]
   metrics:
   - name: bpm
     desc: Bpm
     type: gauge
     unit: bpm
-    labels: *common_labels
+    labels: *heartrate_labels
   - name: source
     desc: An enumeration.("awake" "rest" "sleep" "session" "live" "workout")
     type: info
     unit: null
-    labels: *common_labels
+    labels: *heartrate_labels
 - name: personal_info
   prefix: oura_personal_info_
   labels: *common_labels
